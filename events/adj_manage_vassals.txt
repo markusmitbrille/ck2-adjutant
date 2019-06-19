@@ -1,0 +1,319 @@
+namespace = ADJ
+
+character_event = {
+    id = ADJ.30
+
+    window = EventWindowLongCharacter
+    picture = GFX_evt_magnificent_castle
+    portrait = event_target:adj_target_bureaucrat
+
+    is_triggered_only = yes
+    only_playable = yes
+    only_rulers = yes
+    ai = no
+    
+#  ######## ########  ####  ######    ######   ######## ########  
+#     ##    ##     ##  ##  ##    ##  ##    ##  ##       ##     ## 
+#     ##    ##     ##  ##  ##        ##        ##       ##     ## 
+#     ##    ########   ##  ##   #### ##   #### ######   ########  
+#     ##    ##   ##    ##  ##    ##  ##    ##  ##       ##   ##   
+#     ##    ##    ##   ##  ##    ##  ##    ##  ##       ##    ##  
+#     ##    ##     ## ####  ######    ######   ######## ##     ## 
+
+    trigger = { 
+        # not currently managing titles
+        NOT = { has_character_flag = adj_character_flag_managing_titles }
+
+        # has bureaucrat
+        any_courtier_or_vassal = {
+            has_minor_title = adj_title_bureaucrat
+            liege = { character = PREVPREV }
+            
+            always = yes
+        }
+
+        # over vassal limit
+        over_vassal_limit > 0
+    }
+    
+#  #### ##     ## ##     ## ######## ########  ####    ###    ######## ######## 
+#   ##  ###   ### ###   ### ##       ##     ##  ##    ## ##      ##    ##       
+#   ##  #### #### #### #### ##       ##     ##  ##   ##   ##     ##    ##       
+#   ##  ## ### ## ## ### ## ######   ##     ##  ##  ##     ##    ##    ######   
+#   ##  ##     ## ##     ## ##       ##     ##  ##  #########    ##    ##       
+#   ##  ##     ## ##     ## ##       ##     ##  ##  ##     ##    ##    ##       
+#  #### ##     ## ##     ## ######## ########  #### ##     ##    ##    ######## 
+
+    immediate = {
+        set_character_flag = adj_character_flag_managing_titles
+
+        # clear event targets from previous suggestions
+        clear_event_target = adj_target_bureaucrat
+        clear_event_target = adj_target_capital_barony
+        clear_event_target = adj_target_capital_county
+        clear_event_target = adj_target_capital_duchy
+        clear_event_target = adj_target_capital_kingdom
+        clear_event_target = adj_target_title
+        clear_event_target = adj_target_title_kingdom
+        clear_event_target = adj_target_candidate_vassal
+
+        # find bureaucrat
+        random_courtier_or_vassal = {
+            limit = {
+                has_minor_title = adj_title_bureaucrat
+                liege = { character = PREVPREV }
+            }
+
+            save_event_target_as = adj_target_bureaucrat
+        }
+
+        # find capital barony, county, duchy, kingdom
+        ROOT = {
+            capital_holding = {
+                save_event_target_as = adj_target_capital_barony
+                dejure_liege_title = {
+                    save_event_target_as = adj_target_capital_county
+                    dejure_liege_title = {
+                        save_event_target_as = adj_target_capital_duchy
+                        dejure_liege_title = {
+                            save_event_target_as = adj_target_capital_kingdom
+                        }
+                    }
+                }
+            }
+        }
+
+        # find target title
+        random_demesne_title = {
+            limit = {
+                can_be_given_away = yes
+                OR = {
+                    AND = {
+                        tier = DUKE
+                        ROOT = { higher_real_tier_than = DUKE }
+                    }
+                    AND = {
+                        tier = KING
+                        ROOT = { higher_real_tier_than = KING }
+                    }
+                }
+
+                # not the capital duchy
+                NAND = {
+                    tier = DUKE
+                    title = event_target:adj_target_capital_duchy
+                }
+
+                # not the capital kingdom
+                NAND = {
+                    tier = KING
+                    title = event_target:adj_target_capital_kingdom
+                }
+
+                # not a duchy without count-tier dejure vassals under ROOT
+                NAND = {
+                    tier = DUKE
+                    any_direct_de_jure_vassal_title	= {
+                        holder_scope = {
+                            real_tier = COUNT
+                            any_liege = { character = ROOT count = 1}
+                        }
+                        
+                        count < 1
+                    }
+                }
+
+                # not a kingdom without duke-tier dejure vassals under ROOT
+                NAND = {
+                    tier = KING
+                    any_direct_de_jure_vassal_title	= {
+                        holder_scope = {
+                            real_tier = DUKE
+                            any_liege = { character = ROOT count = 1}
+                        }
+                        
+                        count < 1
+                    }
+                }
+            }
+
+            preferred_limit = {
+                tier = DUKE
+                NOT = { de_jure_liege_or_above = event_target:adj_target_capital_kingdom }
+            }
+            preferred_limit = {
+                tier = DUKE
+            }
+
+            save_event_target_as = adj_target_title
+
+            dejure_liege_title = {
+                save_event_target_as = adj_target_title_kingdom
+            }
+
+            # find vassal count for duchy title
+            if = {
+                limit = { tier = DUKE }
+                random_direct_de_jure_vassal_title = {
+                    limit = {
+                        holder_scope = {
+                            real_tier = COUNT
+                            any_liege = { character = ROOT count = 1 }
+                        }
+                    }
+
+                    # prefer one-title counts, implicitly constrained to the duchy
+                    preferred_limit = {
+                        holder_scope = {
+                            any_demesne_title = {
+                                tier = COUNT
+                                count < 2
+                            }
+                        }
+                    }
+
+                    # prefer counts constrained to the duchy
+                    preferred_limit = {
+                        holder_scope = {
+                            any_demesne_title = {
+                                NOT = { holding_type = family_palace }
+                                NOT = { de_jure_liege_or_above = event_target:adj_target_title }
+                                count < 1
+                            }
+                        }
+                    }
+
+                    holder_scope = { save_event_target_as = adj_target_candidate_vassal }
+                }
+            }
+
+            # find vassal duke for kingdom title
+            if = {
+                limit = { tier = KING }
+                random_direct_de_jure_vassal_title = {
+                    limit = {
+                        holder_scope = {
+                            real_tier = DUKE
+                            any_liege = { character = ROOT count = 1 }
+                        }
+                    }
+
+                    # prefer one-title dukes, implicitly constrained to the kingdom
+                    preferred_limit = {
+                        holder_scope = {
+                            any_demesne_title = {
+                                tier = DUKE
+                                
+                                count < 2
+                            }
+                        }
+                    }
+
+                    # prefer dukes constrained to the kingdom
+                    preferred_limit = {
+                        holder_scope = {
+                            any_demesne_title = {
+                                NOT = { holding_type = family_palace }
+                                NOT = { de_jure_liege_or_above = event_target:adj_target_title }
+
+                                count < 1
+                            }
+                        }
+                    }
+
+                    holder_scope = { save_event_target_as = adj_target_candidate_vassal }
+                }
+            }
+        }
+
+        log = "---------------------------------------------------------------------------"
+        log = "ADJ.10/immediate (end)"
+        log = "--> adj_target_bureaucrat         = [adj_target_bureaucrat.GetFullName]"
+        log = "--> adj_target_capital_barony     = [adj_target_capital_barony.GetFullName]"
+        log = "--> adj_target_capital_county     = [adj_target_capital_county.GetFullName]"
+        log = "--> adj_target_capital_duchy      = [adj_target_capital_duchy.GetFullName]"
+        log = "--> adj_target_capital_kingdom    = [adj_target_capital_kingdom.GetFullName]"
+        log = "--> adj_target_title              = [adj_target_title.GetFullName]"
+        log = "--> adj_target_title_kingdom      = [adj_target_title_kingdom.GetFullName]"
+        log = "--> adj_target_candidate_vassal   = [adj_target_candidate_vassal.GetFullName]"
+        log = "---------------------------------------------------------------------------"
+    }
+
+#  ########  ########  ######   ######  ########  #### ########  ######## ####  #######  ##    ##  ######  
+#  ##     ## ##       ##    ## ##    ## ##     ##  ##  ##     ##    ##     ##  ##     ## ###   ## ##    ## 
+#  ##     ## ##       ##       ##       ##     ##  ##  ##     ##    ##     ##  ##     ## ####  ## ##       
+#  ##     ## ######    ######  ##       ########   ##  ########     ##     ##  ##     ## ## ## ##  ######  
+#  ##     ## ##             ## ##       ##   ##    ##  ##           ##     ##  ##     ## ##  ####       ## 
+#  ##     ## ##       ##    ## ##    ## ##    ##   ##  ##           ##     ##  ##     ## ##   ### ##    ## 
+#  ########  ########  ######   ######  ##     ## #### ##           ##    ####  #######  ##    ##  ######  
+
+    desc = {
+        trigger = {
+            event_target:adj_target_title = {
+                tier = DUKE
+                NOT = { de_jure_liege_or_above = event_target:adj_target_capital_kingdom }
+            }
+        }
+        text = adj_event_desc_30_duke_not_capital_kingdom
+        picture = GFX_evt_magnificent_castle
+    }
+    desc = {
+        trigger = {
+            event_target:adj_target_title = {
+                tier = DUKE
+            }
+        }
+        text = adj_event_desc_30_duke
+        picture = GFX_evt_magnificent_castle
+    }
+    desc = {
+        trigger = {
+            event_target:adj_target_title = {
+                tier = KING
+            }
+        }
+        text = adj_event_desc_30_king
+        picture = GFX_evt_magnificent_castle
+    }
+
+#   #######  ########  ######## ####  #######  ##    ##  ######  
+#  ##     ## ##     ##    ##     ##  ##     ## ###   ## ##    ## 
+#  ##     ## ##     ##    ##     ##  ##     ## ####  ## ##       
+#  ##     ## ########     ##     ##  ##     ## ## ## ##  ######  
+#  ##     ## ##           ##     ##  ##     ## ##  ####       ## 
+#  ##     ## ##           ##     ##  ##     ## ##   ### ##    ## 
+#   #######  ##           ##    ####  #######  ##    ##  ######  
+
+    option = {
+        name = {
+            text = "adj_event_opt_30_vassal_duke"
+            trigger = {
+                event_target:adj_target_title = { tier = DUKE }
+            }
+        }
+        name = {
+            text = "adj_event_opt_30_vassal_king"
+            trigger = {
+                event_target:adj_target_title = { tier = KING }
+            }
+        }
+        trigger = {
+            event_target:adj_target_title = { always = yes }
+            event_target:adj_target_candidate_vassal = { always = yes }
+        }
+
+        event_target:adj_target_candidate_vassal = {
+            grant_title = event_target:adj_target_title
+        }
+
+        # recurse event
+        clr_character_flag = adj_character_flag_managing_titles
+        character_event = { id = ADJ.30 tooltip = adj_evt_tooltip_30_recurse }
+    }
+
+    option = {
+        name = "adj_event_opt_30_abort"
+        clr_character_flag = adj_character_flag_managing_titles
+        custom_tooltip = { text = "adj_event_opt_30_abort_tooltip" }
+    }
+}
