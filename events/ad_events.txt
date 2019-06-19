@@ -1,0 +1,599 @@
+namespace = ADJ
+
+# add newly acquired holding modifiers
+character_event = {
+	id = ADJ.01
+	hide_window = yes
+
+    is_triggered_only = yes
+    only_playable = yes
+    only_rulers = yes
+    ai = no
+
+    trigger = {
+        # only holdings
+        FROM = { tier = BARON }
+
+        # not in new holder's capital duchy
+        NOT = { FROM = { location = { duchy = { ROOT = { capital_scope = { duchy = { title = PREVPREVPREV } } } } } } }
+    }
+
+    immediate = {
+        FROM = {
+            add_holding_modifier = {
+                modifier = adj_event_modifier_newly_acquired
+                years = 1
+            }
+        }
+	}
+}
+
+# vast demesne management
+character_event = {
+    id = ADJ.02
+    
+    is_triggered_only = yes
+    only_playable = yes
+    only_rulers = yes
+    ai = no
+    
+    trigger = {
+        # not currently managing titles
+        NOT = { has_character_flag = adj_character_flag_managing_titles }
+
+        # has bureaucrat
+        any_courtier_or_vassal = {
+            has_minor_title = adj_title_bureaucrat
+            liege = { character = PREVPREV }
+            
+            always = yes
+        }
+
+        # has vast demesne
+        over_max_demesne_size > 1
+    }
+    
+    immediate = {
+        set_character_flag = adj_character_flag_managing_titles
+
+        # clear event targets from previous suggestions
+        clear_event_target = adj_target_bureaucrat
+        clear_event_target = adj_target_title
+        clear_event_target = adj_target_candidate_dynasty
+        clear_event_target = adj_target_candidate_courtier
+        clear_event_target = adj_target_candidate_vassal
+
+        # find bureaucrat
+        random_courtier_or_vassal = {
+            limit = {
+                has_minor_title = adj_title_bureaucrat
+                liege = { character = PREVPREV }
+            }
+
+            save_event_target_as = adj_target_bureaucrat
+        }
+
+        # find target title
+        random_demesne_title = {
+            limit = {
+                can_be_given_away = yes
+                NOT = { higher_tier_than = KING }
+                NOT = { ROOT = { primary_title = { title = PREVPREV } } }
+
+                # not the capital holding
+                NAND = {
+                    tier = BARON
+                    is_capital = yes
+                }
+                
+                # not the capital county
+                NAND = {
+                    tier = COUNT
+                    ROOT = { capital_scope = { county = { title = PREVPREVPREV } } }
+                }
+
+                # not the capital duchy
+                NAND = {
+                    tier = DUKE
+                    ROOT = { capital_scope = { duchy = { title = PREVPREVPREV } } }
+                }
+
+                # not the capital kingdom
+                NAND = {
+                    tier = KING
+                    ROOT = { capital_scope = { kingdom = { title = PREVPREVPREV } } }
+                }
+
+                # not a duchy without count-tier dejure vassals
+                NAND = {
+                    tier = DUKE
+                    any_direct_de_jure_vassal_title	= {
+                        holder_scope = { real_tier = COUNT }
+                        
+                        count < 1
+                    }
+                }
+
+                # not a kingdom without duke-tier dejure vassals
+                NAND = {
+                    tier = KING
+                    any_direct_de_jure_vassal_title	= {
+                        holder_scope = { real_tier = DUKE }
+                        
+                        count < 1
+                    }
+                }
+            }
+
+            preferred_limit = {
+                tier = BARON
+                NOT = { location = { kingdom = { ROOT = { capital_scope = { kingdom = { title = PREVPREVPREV } } } } } }
+            }
+            preferred_limit = {
+                tier = COUNT
+                NOT = { location = { kingdom = { ROOT = { capital_scope = { kingdom = { title = PREVPREVPREV } } } } } }
+            }
+            preferred_limit = {
+                tier = BARON
+                NOT = { location = { duchy = { ROOT = { capital_scope = { duchy = { title = PREVPREVPREV } } } } } }
+            }
+            preferred_limit = {
+                tier = COUNT
+                NOT = { location = { duchy = { ROOT = { capital_scope = { duchy = { title = PREVPREVPREV } } } } } }
+            }
+            preferred_limit = {
+                tier = BARON
+            }
+            preferred_limit = {
+                tier = COUNT
+            }
+            preferred_limit = {
+                tier = DUKE
+                NOT = { dejure_liege_title = { ROOT = { capital_scope = { kingdom = { title = PREVPREVPREV } } } } }
+            }
+            preferred_limit = {
+                tier = DUKE
+            }
+
+            save_event_target_as = adj_target_title
+        }
+
+        # find a dynasty member
+        random_dynasty_member = {
+            limit = {
+                is_ruler = no
+                is_landed_title_allowed = event_target:adj_target_title
+            }
+
+            preferred_limit = {
+                trait = content
+            }
+            
+            preferred_limit = {
+                opinion = { who = ROOT value > 75}
+            }
+            preferred_limit = {
+                opinion = { who = ROOT value > 50}
+            }
+            preferred_limit = {
+                opinion = { who = ROOT value > 25}
+            }
+            preferred_limit = {
+                opinion = { who = ROOT value > 0}
+            }
+            preferred_limit = {
+                opinion = { who = ROOT value > -25}
+            }
+            preferred_limit = {
+                opinion = { who = ROOT value > -50}
+            }
+            preferred_limit = {
+                opinion = { who = ROOT value > -75}
+            }
+
+            save_event_target_as = adj_target_candidate_dynasty
+        }
+
+        # find a courtier
+        random_courtier = {
+            limit = {
+                is_ruler = no
+                is_landed_title_allowed = event_target:adj_target_title
+                NOT = { dynasty = ROOT }
+            }
+
+            preferred_limit = {
+                trait = content
+            }
+            
+            preferred_limit = {
+                opinion = { who = ROOT value > 75}
+            }
+            preferred_limit = {
+                opinion = { who = ROOT value > 50}
+            }
+            preferred_limit = {
+                opinion = { who = ROOT value > 25}
+            }
+            preferred_limit = {
+                opinion = { who = ROOT value > 0}
+            }
+            preferred_limit = {
+                opinion = { who = ROOT value > -25}
+            }
+            preferred_limit = {
+                opinion = { who = ROOT value > -50}
+            }
+            preferred_limit = {
+                opinion = { who = ROOT value > -75}
+            }
+
+            save_event_target_as = adj_target_candidate_courtier
+        }
+
+        # find a vassal who desires the duchy or kingdom
+        event_target:adj_target_title = {
+            if = {
+                # for duchies ...
+                limit = { tier = DUKE }
+                random_direct_de_jure_vassal_title = {
+                    # ... only counts are eligible
+                    limit = { holder_scope = { real_tier = COUNT } }
+
+                    # prefer one-title counts
+                    preferred_limit = {
+                        holder_scope = {
+                            any_demesne_title = {
+                                tier = COUNT
+                                
+                                count < 2
+                            }
+                        }
+                    }
+
+                    # prefer counts constrained to the duchy
+                    preferred_limit = {
+                        holder_scope = {
+                            any_demesne_title = {
+                                tier = COUNT
+                                NOT = { dejure_liege_title = event_target:adj_target_title }
+
+                                count < 1
+                            }
+                        }
+                    }
+
+                    holder_scope = { save_event_target_as = adj_target_candidate_vassal }
+                }
+            }
+            else_if = {
+                # for kingdoms ...
+                limit = { tier = KING }
+                random_direct_de_jure_vassal_title = {
+                    # ... only dukes are eligible
+                    limit = { holder_scope = { real_tier = DUKE } }
+
+                    # prefer one-title dukes
+                    preferred_limit = {
+                        holder_scope = {
+                            any_demesne_title = {
+                                tier = DUKE
+                                
+                                count < 2
+                            }
+                        }
+                    }
+
+                    # prefer dukes constrained to the kingdom
+                    preferred_limit = {
+                        holder_scope = {
+                            any_demesne_title = {
+                                tier = DUKE
+                                NOT = { dejure_liege_title = event_target:adj_target_title }
+                                
+                                count < 1
+                            }
+                        }
+                    }
+
+                    holder_scope = { save_event_target_as = adj_target_candidate_vassal }
+                }
+            }
+        }
+    }
+
+    desc = {
+        trigger = {
+            event_target:adj_target_title = {
+                tier = BARON
+                NOT = { location = { kingdom = { ROOT = { capital_scope = { kingdom = { title = PREVPREVPREV } } } } } }
+            }
+        }
+        text = adj_event_desc_02_baron_not_capital_kingdom
+    }
+    desc = {
+        trigger = {
+            event_target:adj_target_title = {
+                tier = COUNT
+                NOT = { location = { kingdom = { ROOT = { capital_scope = { kingdom = { title = PREVPREVPREV } } } } } }
+            }
+        }
+        text = adj_event_desc_02_count_not_capital_kingdom
+    }
+    desc = {
+        trigger = {
+            event_target:adj_target_title = {
+                tier = BARON
+                NOT = { location = { duchy = { ROOT = { capital_scope = { duchy = { title = PREVPREVPREV } } } } } }
+            }
+        }
+        text = adj_event_desc_02_baron_not_capital_duchy
+    }
+    desc = {
+        trigger = {
+            event_target:adj_target_title = {
+                tier = COUNT
+                NOT = { location = { duchy = { ROOT = { capital_scope = { duchy = { title = PREVPREVPREV } } } } } }
+            }
+        }
+        text = adj_event_desc_02_count_not_capital_duchy
+    }
+    desc = {
+        trigger = {
+            event_target:adj_target_title = {
+                tier = BARON
+            }
+        }
+        text = adj_event_desc_02_baron
+    }
+    desc = {
+        trigger = {
+            event_target:adj_target_title = {
+                tier = COUNT
+            }
+        }
+        text = adj_event_desc_02_count
+    }
+    desc = {
+        trigger = {
+            event_target:adj_target_title = {
+                tier = DUKE
+                NOT = { dejure_liege_title = { ROOT = { capital_scope = { kingdom = { title = PREVPREVPREV } } } } }
+            }
+        }
+        text = adj_event_desc_02_duke_not_capital_kingdom
+    }
+    desc = {
+        trigger = {
+            event_target:adj_target_title = {
+                tier = DUKE
+            }
+        }
+        text = adj_event_desc_02_duke
+    }
+    desc = {
+        trigger = {
+            event_target:adj_target_title = {
+                tier = KING
+            }
+        }
+        text = adj_event_desc_02_king
+    }
+
+    # TODO: Implement pictures
+
+    picture = GFX_evt_castle_garden
+
+    option = {
+        name = "adj_event_opt_02_dynasty"
+        trigger = {
+            event_target:adj_target_title = { OR = { tier = BARON tier = COUNT } }
+            event_target:adj_target_candidate_dynasty = { always = yes }
+        }
+
+        event_target:adj_target_candidate_dynasty = {
+            grant_title = event_target:adj_target_title
+        }
+
+        # recurse event
+        clr_character_flag = adj_character_flag_managing_titles
+        character_event = { id = ADJ.02 tooltip = adj_evt_tooltip_02 }
+    }
+    
+    option = {
+        name = "adj_event_opt_02_courtier"
+        trigger = {
+            event_target:adj_target_title = { OR = { tier = BARON tier = COUNT } }
+            event_target:adj_target_candidate_courtier = { always = yes }
+        }
+
+        event_target:adj_target_candidate_courtier = {
+            grant_title = event_target:adj_target_title
+        }
+
+        # recurse event
+        character_event = { id = ADJ.02 tooltip = adj_evt_tooltip_02 }
+    }
+    
+    option = {
+        name = "adj_event_opt_02_new"
+        trigger = {
+            event_target:adj_target_title = { OR = { tier = BARON tier = COUNT } }
+        }
+        
+        if = {
+            limit = { event_target:adj_target_title = { holding_type = castle } }
+            create_random_soldier = {
+                dynasty = none
+                race = ROOT
+                religion = ROOT
+                culture = ROOT
+                female = 20
+                fertility = 2
+                health = 7
+                trait = content
+                attributes = {
+                    martial = 12
+                    diplomacy = 8
+                    stewardship = 6
+                    intrigue = 6
+                    learning = 6
+                }
+            }
+        }
+        else_if = {
+            limit = { event_target:adj_target_title = { holding_type = city } }
+            create_random_steward = {
+                dynasty = none
+                race = ROOT
+                religion = ROOT
+                culture = ROOT
+                female = 10
+                fertility = 2
+                health = 7
+                trait = content
+                attributes = {
+                    martial = 6
+                    diplomacy = 8
+                    stewardship = 12
+                    intrigue = 6
+                    learning = 6
+                }
+            }
+        }
+        else_if = {
+            limit = { event_target:adj_target_title = { holding_type = temple } }
+            create_random_steward = {
+                dynasty = none
+                race = ROOT
+                religion = ROOT
+                culture = ROOT
+                female = no
+                fertility = 2
+                health = 7
+                trait = content
+                attributes = {
+                    martial = 6
+                    diplomacy = 8
+                    stewardship = 6
+                    intrigue = 6
+                    learning = 12
+                }
+            }
+        }
+        else = {
+            create_random_diplomat = {
+                dynasty = none
+                race = ROOT
+                religion = ROOT
+                culture = ROOT
+                female = no
+                fertility = 2
+                health = 7
+                trait = content
+                attributes = {
+                    martial = 6
+                    diplomacy = 12
+                    stewardship = 6
+                    intrigue = 6
+                    learning = 6
+                }
+            }
+        }
+
+        new_character = {
+            grant_title = event_target:adj_target_title
+        }
+
+        # recurse event
+        clr_character_flag = adj_character_flag_managing_titles
+        character_event = { id = ADJ.02 tooltip = adj_evt_tooltip_02 }
+    }
+
+    option = {
+        name = {
+            text = "adj_event_opt_02_vassal_duke"
+            trigger = {
+                event_target:adj_target_title = { tier = DUKE }
+            }
+        }
+        name = {
+            text = "adj_event_opt_02_vassal_king"
+            trigger = {
+                event_target:adj_target_title = { tier = KING }
+            }
+        }
+        trigger = {
+            event_target:adj_target_title = { OR = { tier = DUKE tier = KING } }
+            event_target:adj_target_candidate_vassal = { always = yes }
+        }
+
+        event_target:adj_target_candidate_vassal = {
+            grant_title = event_target:adj_target_title
+        }
+
+        # recurse event
+        clr_character_flag = adj_character_flag_managing_titles
+        character_event = { id = ADJ.02 tooltip = adj_evt_tooltip_02 }
+    }
+
+    option = {
+        name = "adj_event_opt_02_abort"
+        clr_character_flag = adj_character_flag_managing_titles
+    }
+    
+    after = {
+        clr_character_flag = adj_character_flag_managing_titles
+    }
+}
+
+# TODO: Implement
+# new acquiration management
+# character_event = {
+#     id = ADJ.03
+    
+#     is_triggered_only = yes
+#     only_playable = yes
+#     only_rulers = yes
+#     ai = no
+    
+#     trigger = {
+#         # not currently managing titles
+#         NOT = { has_character_flag = adj_character_flag_managing_titles }
+        
+#         # has bureaucrat
+#         any_courtier_or_vassal = {
+#             has_minor_title = adj_title_bureaucrat
+#             liege = { character = PREVPREV }
+#         }
+        
+#         # has new titles
+#         any_demesne_title = {
+#             has_holding_modifier = adj_event_modifier_newly_acquired
+#             count >= 1
+#         }
+#     }
+    
+#     immediate = {
+#         set_character_flag = adj_character_flag_managing_titles
+        
+#         # TODO: Implement immediate effects
+#     }
+
+#     # TODO: Implement descriptions
+
+#     # TODO: Implement pictures
+
+#     picture = GFX_evt_castle_garden
+    
+#     # TODO: Implement options
+
+#     option = {
+#         name = "adj_event_opt_03_abort"
+#         clr_character_flag = adj_character_flag_managing_titles
+#     }
+    
+#     after = {
+#         clr_character_flag = adj_character_flag_managing_titles
+#     }
+# }

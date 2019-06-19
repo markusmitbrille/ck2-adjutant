@@ -1,0 +1,32 @@
+# CODE;ENGLISH;FRENCH;GERMAN;;SPANISH;;;;;;;;;x
+
+adj_title_bureaucrat;Bureaucrat;;;;;;;;;;;;;x
+adj_title_bureaucrat_desc;Your bureaucrat is your loyal servant and helpful right hand in matters of bureaucracy and administration.;;;;;;;;;;;;;x
+
+adj_manage_titles_limit;Ask Your Bureaucrat to Manage Your Demesne;;;;;;;;;;;;;x
+adj_manage_titles_limit_desc;Ask your bureaucrat to help you take care of your vast demesne. Until you are below the demesne limit again, he will go through each one and present you with several courses of action, of which you may then choose any one or none, as it please the [Root.GetTitle].;;;;;;;;;;;;;x
+
+adj_manage_titles_new;Ask Your Bureaucrat to Manage New Acquirations;;;;;;;;;;;;;x
+adj_manage_titles_new_desc;Ask your bureaucrat to help you take care of all newly acquired titles outside your capital duchy. He will go through each one and present you with several courses of action, of which you may then choose any one or none, as it please the [Root.GetTitle].;;;;;;;;;;;;;x
+
+adj_event_modifier_newly_acquired;Newly Acquired;;;;;;;;;;;;;x
+
+adj_evt_tooltip_02;Character manages vast demesne.;;;;;;;;;;;;;x
+adj_evt_tooltip_03;Character manages new acquirations.;;;;;;;;;;;;;x
+
+adj_event_desc_02_baron_not_capital_kingdom;"[Root.GetFOA]", [adj_target_bureaucrat.GetFirstName], your bureaucrat, speaks up. "I suggest you hand over direct control of the §G[adj_target_title.GetFullName]§! to one of your loyal servants. It is a small fief in the §Z[adj_target_title.Duchy.GetFullName]§!, part of the §Z[adj_target_title.Kingdom.GetFullName]§!, outside your greater sphere of interest."\n\n"How shall we proceed?";;;;;;;;;;;;;x
+adj_event_desc_02_count_not_capital_kingdom;"[Root.GetFOA]", [adj_target_bureaucrat.GetFirstName], your bureaucrat, speaks up. "I suggest you hand over direct control of the §G[adj_target_title.GetFullName]§! to one of your loyal servants. It is a handsome fiefdom in the §Z[adj_target_title.Duchy.GetFullName]§!, part of the §Z[adj_target_title.Kingdom.GetFullName]§!, outside your greater sphere of interest."\n\n"How shall we proceed?";;;;;;;;;;;;;x
+adj_event_desc_02_baron_not_capital_duchy;"[Root.GetFOA]", [adj_target_bureaucrat.GetFirstName], your bureaucrat, speaks up. "I suggest you hand over direct control of the §G[adj_target_title.GetFullName]§! to one of your loyal servants. It is a small fief in the §Z[adj_target_title.Duchy.GetFullName]§!, part of the §Z[adj_target_title.Kingdom.GetFullName]§!, outside your principal sphere of interest."\n\n"How shall we proceed?";;;;;;;;;;;;;x
+adj_event_desc_02_count_not_capital_duchy;"[Root.GetFOA]", [adj_target_bureaucrat.GetFirstName], your bureaucrat, speaks up. "I suggest you hand over direct control of the §G[adj_target_title.GetFullName]§! to one of your loyal servants. It is a handsome fiefdom in the §Z[adj_target_title.Duchy.GetFullName]§!, part of the §Z[adj_target_title.Kingdom.GetFullName]§!, outside your principal sphere of interest."\n\n"How shall we proceed?";;;;;;;;;;;;;x
+adj_event_desc_02_baron;"[Root.GetFOA]", [adj_target_bureaucrat.GetFirstName], your bureaucrat, speaks up. "I suggest you hand over direct control of the §G[adj_target_title.GetFullName]§! to one of your loyal servants. It is a small fief in the §Z[adj_target_title.Duchy.GetFullName]§!, part of the §Z[adj_target_title.Kingdom.GetFullName]§!, inside your principal sphere of interest."\n\n"How shall we proceed?";;;;;;;;;;;;;x
+adj_event_desc_02_count;"[Root.GetFOA]", [adj_target_bureaucrat.GetFirstName], your bureaucrat, speaks up. "I suggest you hand over direct control of the §G[adj_target_title.GetFullName]§! to one of your loyal servants. It is a handsome fiefdom in the §Z[adj_target_title.Duchy.GetFullName]§!, part of the §Z[adj_target_title.Kingdom.GetFullName]§!, inside your principal sphere of interest."\n\n"How shall we proceed?";;;;;;;;;;;;;x
+adj_event_desc_02_duke_not_capital_kingdom;"[Root.GetFOA] ...", [adj_target_bureaucrat.GetFirstName], your bureaucrat, hesitates. "The §G[adj_target_title.GetFullName]§! is a grand fiefdom in the §Z[adj_target_title.Kingdom.GetFullName]§!, outside your sphere of interest. I propose elevating §B[adj_target_candidate_vassal.GetTitledName]§! to the rank of [adj_target_title.GetRulerTitle] and granting [adj_target_candidate_vassal.GetHerHim] [adj_target_title.GetBaseName]."\n\n"How shall we proceed?";;;;;;;;;;;;;x
+adj_event_desc_02_duke;"[Root.GetFOA] ...", [adj_target_bureaucrat.GetFirstName], your bureaucrat, hesitates. "The §G[adj_target_title.GetFullName]§! is a grand fiefdom in the §Z[adj_target_title.Kingdom.GetFullName]§!, your sphere of interest. I propose elevating §B[adj_target_candidate_vassal.GetTitledName]§! to the rank of [adj_target_title.GetRulerTitle] and granting [adj_target_candidate_vassal.GetHerHim] [adj_target_title.GetBaseName]."\n\n"How shall we proceed?";;;;;;;;;;;;;x
+adj_event_desc_02_king;"[Root.GetFOA] ...", [adj_target_bureaucrat.GetFirstName], your bureaucrat, hesitates. "The §G[adj_target_title.GetFullName]§! is a mighty fiefdom, bringing with it tremendous responsibility and fabulous power. Against my reservations as your fiercely loyal servent, I propose elevating §B[adj_target_candidate_vassal.GetTitledName]§! to the rank of [adj_target_title.GetRulerTitle] and granting [adj_target_candidate_vassal.GetHerHim] [adj_target_title.GetBaseName]."\n\n"How shall we proceed?";;;;;;;;;;;;;x
+
+adj_event_opt_02_dynasty;Summon [adj_target_candidate_dynasty.GetFirstName], I will make [adj_target_candidate_dynasty.GetHerHim] [adj_target_title.GetRulerTitle]!;;;;;;;;;;;;;x
+adj_event_opt_02_courtier;Get me [adj_target_candidate_courtier.GetFirstName], I will make [adj_target_candidate_courtier.GetHerHim] [adj_target_title.GetRulerTitle]!;;;;;;;;;;;;;x
+adj_event_opt_02_new;Fetch me an able statesman, whom I can make [adj_target_title.GetRulerTitle]!;;;;;;;;;;;;;x
+adj_event_opt_02_vassal_duke;So be it, [adj_target_candidate_vassal.GetFirstName] will be [adj_target_title.GetRulerTitle]!;;;;;;;;;;;;;x
+adj_event_opt_02_vassal_king;Magna Servitus Est Magna Fortuna, [adj_target_candidate_vassal.GetFirstName] ...;;;;;;;;;;;;;x
+adj_event_opt_02_abort;I think I've had enough bureaucracy for now, [adj_target_bureaucrat.GetFirstName].;;;;;;;;;;;;;x

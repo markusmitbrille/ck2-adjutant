@@ -1,0 +1,68 @@
+decisions = {
+    adj_manage_titles_limit = {
+        is_high_prio = yes
+        only_playable = yes
+        only_rulers = yes
+        ai = no
+        
+        potential = {
+            is_ruler = yes
+            is_nomadic = no
+            higher_real_tier_than = COUNT
+            over_max_demesne_size > 1
+            NOT = { has_character_flag = adj_character_flag_managing_titles }
+        }
+
+        allow = {
+            # has bureaucrat
+            any_courtier_or_vassal = {
+                has_minor_title = adj_title_bureaucrat
+                liege = { character = PREVPREV }
+
+                always = yes
+            }
+
+            # has vast demesne
+            over_max_demesne_size > 1
+        }
+
+        effect = {
+            character_event = { id = ADJ.02 tooltip = adj_evt_tooltip_02 }
+        }
+    }
+    adj_manage_titles_new = {
+        is_high_prio = yes
+        only_playable = yes
+        only_rulers = yes
+        ai = no
+        
+        potential = {
+            is_ruler = yes
+            is_nomadic = no
+            higher_real_tier_than = COUNT
+            NOT = { has_character_flag = adj_character_flag_managing_titles }
+            any_demesne_title = {
+                has_holding_modifier = adj_event_modifier_newly_acquired
+                count >= 1
+            }
+        }
+
+        allow = {
+            # has bureaucrat
+            any_courtier_or_vassal = {
+                has_minor_title = adj_title_bureaucrat
+                liege = { character = PREVPREV }
+            }
+
+            # has new titles
+            any_demesne_title = {
+                has_holding_modifier = adj_event_modifier_newly_acquired
+                count >= 1
+            }
+        }
+
+        effect = {
+            character_event = { id = ADJ.03 tooltip = adj_evt_tooltip_03 }
+        }
+    }
+}

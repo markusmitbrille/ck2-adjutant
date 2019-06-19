@@ -1,2 +1,2 @@
-name="Adjutant"
+name="The Bureaucrat"
 path="mod/ck2-adjutant"

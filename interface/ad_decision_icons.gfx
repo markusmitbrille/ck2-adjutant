@@ -1,0 +1,10 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_adj_manage_titles_limit"
+		texturefile = "gfx\\interface\\decision_icon_ask_help_to_manage_titles.dds"
+	}
+	spriteType = {
+		name = "GFX_adj_manage_titles_new"
+		texturefile = "gfx\\interface\\decision_icon_ask_help_to_manage_titles.dds"
+	}
+}
