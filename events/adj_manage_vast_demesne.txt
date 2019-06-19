@@ -1,3 +1,5 @@
+namespace = ADJ
+
 character_event = {
     id = ADJ.02
 
