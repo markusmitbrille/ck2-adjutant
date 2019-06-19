@@ -449,7 +449,10 @@ character_event = {
     option = {
         name = "adj_event_opt_10_dynasty"
         trigger = {
-            event_target:adj_target_title = { OR = { tier = BARON tier = COUNT } }
+            event_target:adj_target_title = { 
+                OR = { tier = BARON tier = COUNT }
+                NOR = { holding_type = CITY holding_type = TEMPLE }
+            }
             event_target:adj_target_candidate_dynasty = { always = yes }
         }
 
@@ -524,6 +527,7 @@ character_event = {
     }
 }
 
+# this helper is needed so the grantee's face doesn't show up in the top left corner of follow-up events
 character_event = {
     id = ADJ.11
 
