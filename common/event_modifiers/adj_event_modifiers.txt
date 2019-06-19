@@ -1,0 +1,4 @@
+adj_event_modifier_newly_acquired = {
+    icon = 13
+    # is_visible = { always = no } # TODO: Once this mechanic works, make the modifier invisible
+}

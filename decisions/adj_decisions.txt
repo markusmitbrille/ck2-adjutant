@@ -14,12 +14,14 @@ decisions = {
         }
 
         allow = {
-            # has bureaucrat
-            any_courtier_or_vassal = {
-                has_minor_title = adj_title_bureaucrat
-                liege = { character = PREVPREV }
-
-                always = yes
+            hidden_tooltip = {
+                # has bureaucrat
+                any_courtier_or_vassal = {
+                    has_minor_title = adj_title_bureaucrat
+                    liege = { character = PREVPREV }
+    
+                    always = yes
+                }
             }
 
             # has vast demesne
@@ -48,10 +50,12 @@ decisions = {
         }
 
         allow = {
-            # has bureaucrat
-            any_courtier_or_vassal = {
-                has_minor_title = adj_title_bureaucrat
-                liege = { character = PREVPREV }
+            hidden_tooltip = {
+                # has bureaucrat
+                any_courtier_or_vassal = {
+                    has_minor_title = adj_title_bureaucrat
+                    liege = { character = PREVPREV }
+                }
             }
 
             # has new titles

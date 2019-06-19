@@ -1,0 +1,18 @@
+# ROOT is the character, FROM is the title, FROMFROM is the old holder
+on_new_holder = {
+    events = {
+        ADJ.01
+    }
+}
+# ROOT is the character, FROM is the title, FROMFROM is the old holder
+on_new_holder_inheritance = {
+    events = {
+        ADJ.01
+    }
+}
+# ROOT is the character, FROM is the title, FROMFROM is the old holder
+on_new_holder_usurpation = {
+    events = {
+        ADJ.01
+    }
+}

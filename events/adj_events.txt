@@ -1,0 +1,29 @@
+namespace = ADJ
+
+# add newly acquired holding modifiers
+character_event = {
+	id = ADJ.01
+	hide_window = yes
+
+    is_triggered_only = yes
+    only_playable = yes
+
+    trigger = {
+        # FIXME: doesn't show up on province capital holdings
+        # only holdings
+        FROM = { OR = { tier = BARON tier = COUNT } }
+    }
+
+    immediate = {
+        FROM = {
+            if = {
+                limit = { has_holding_modifier = adj_event_modifier_newly_acquired }
+                remove_holding_modifier = adj_event_modifier_newly_acquired
+            }
+            add_holding_modifier = {
+                modifier = adj_event_modifier_newly_acquired
+                years = 1
+            }
+        }
+	}
+}
