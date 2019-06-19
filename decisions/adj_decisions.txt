@@ -29,7 +29,7 @@ decisions = {
         }
 
         effect = {
-            character_event = { id = ADJ.02 tooltip = adj_evt_tooltip_02 }
+            character_event = { id = ADJ.10 tooltip = adj_evt_tooltip_10 }
         }
     }
     adj_manage_titles_new = {

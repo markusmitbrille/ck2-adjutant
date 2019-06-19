@@ -1,12 +1,10 @@
 namespace = ADJ
 
 character_event = {
-    id = ADJ.02
+    id = ADJ.10
 
     window = EventWindowLongCharacter
     picture = GFX_evt_magnificent_castle
-
-    # override portrait with beaurocrat, otherwise last event's grantee will show up
     portrait = event_target:adj_target_bureaucrat
 
     is_triggered_only = yes
@@ -24,7 +22,7 @@ character_event = {
 
     trigger = { 
         log = "---------------------------------------------------------------------------"
-        log = "ADJ.02/trigger"
+        log = "ADJ.10/trigger"
         log = "--> THIS     = [This.GetFullName]"
         log = "--> ROOT     = [Root.GetFullName]"
         log = "--> FROM     = [From.GetFullName]"
@@ -56,7 +54,7 @@ character_event = {
 
     immediate = {
         log = "---------------------------------------------------------------------------"
-        log = "ADJ.02/immediate"
+        log = "ADJ.10/immediate"
         log = "--> THIS     = [This.GetFullName]"
         log = "--> ROOT     = [Root.GetFullName]"
         log = "--> FROM     = [From.GetFullName]"
@@ -332,7 +330,7 @@ character_event = {
         # }
 
         log = "---------------------------------------------------------------------------"
-        log = "ADJ.02/immediate (end)"
+        log = "ADJ.10/immediate (end)"
         log = "--> adj_target_capital_barony     = [adj_target_capital_barony.GetFullName]"
         log = "--> adj_target_capital_county     = [adj_target_capital_county.GetFullName]"
         log = "--> adj_target_capital_duchy      = [adj_target_capital_duchy.GetFullName]"
@@ -360,7 +358,7 @@ character_event = {
                 NOT = { de_jure_liege_or_above = event_target:adj_target_capital_kingdom }
             }
         }
-        text = adj_event_desc_02_baron_not_capital_kingdom
+        text = adj_event_desc_10_baron_not_capital_kingdom
         picture = GFX_evt_emissary
     }
     desc = {
@@ -370,7 +368,7 @@ character_event = {
                 NOT = { de_jure_liege_or_above = event_target:adj_target_capital_kingdom }
             }
         }
-        text = adj_event_desc_02_count_not_capital_kingdom
+        text = adj_event_desc_10_count_not_capital_kingdom
         picture = GFX_evt_emissary
     }
     desc = {
@@ -380,7 +378,7 @@ character_event = {
                 NOT = { de_jure_liege_or_above = event_target:adj_target_capital_duchy }
             }
         }
-        text = adj_event_desc_02_baron_not_capital_duchy
+        text = adj_event_desc_10_baron_not_capital_duchy
         picture = GFX_evt_emissary
     }
     desc = {
@@ -390,7 +388,7 @@ character_event = {
                 NOT = { de_jure_liege_or_above = event_target:adj_target_capital_duchy }
             }
         }
-        text = adj_event_desc_02_count_not_capital_duchy
+        text = adj_event_desc_10_count_not_capital_duchy
         picture = GFX_evt_emissary
     }
     desc = {
@@ -399,7 +397,7 @@ character_event = {
                 tier = BARON
             }
         }
-        text = adj_event_desc_02_baron
+        text = adj_event_desc_10_baron
         picture = GFX_evt_emissary
     }
     desc = {
@@ -408,7 +406,7 @@ character_event = {
                 tier = COUNT
             }
         }
-        text = adj_event_desc_02_count
+        text = adj_event_desc_10_count
         picture = GFX_evt_emissary
     }
     desc = {
@@ -418,7 +416,7 @@ character_event = {
                 NOT = { de_jure_liege_or_above = event_target:adj_target_capital_kingdom }
             }
         }
-        text = adj_event_desc_02_duke_not_capital_kingdom
+        text = adj_event_desc_10_duke_not_capital_kingdom
         picture = GFX_evt_magnificent_castle
     }
     desc = {
@@ -427,7 +425,7 @@ character_event = {
                 tier = DUKE
             }
         }
-        text = adj_event_desc_02_duke
+        text = adj_event_desc_10_duke
         picture = GFX_evt_magnificent_castle
     }
     desc = {
@@ -436,7 +434,7 @@ character_event = {
                 tier = KING
             }
         }
-        text = adj_event_desc_02_king
+        text = adj_event_desc_10_king
         picture = GFX_evt_magnificent_castle
     }
 
@@ -449,7 +447,7 @@ character_event = {
 #   #######  ##           ##    ####  #######  ##    ##  ######  
 
     option = {
-        name = "adj_event_opt_02_dynasty"
+        name = "adj_event_opt_10_dynasty"
         trigger = {
             event_target:adj_target_title = { OR = { tier = BARON tier = COUNT } }
             event_target:adj_target_candidate_dynasty = { always = yes }
@@ -461,11 +459,11 @@ character_event = {
 
         # recurse event
         clr_character_flag = adj_character_flag_managing_titles
-        character_event = { id = ADJ.02 tooltip = adj_evt_tooltip_02_recurse }
+        character_event = { id = ADJ.10 tooltip = adj_evt_tooltip_10_recurse }
     }
     
     option = {
-        name = "adj_event_opt_02_courtier"
+        name = "adj_event_opt_10_courtier"
         trigger = {
             event_target:adj_target_title = { OR = { tier = BARON tier = COUNT } }
             event_target:adj_target_candidate_courtier = { always = yes }
@@ -476,116 +474,31 @@ character_event = {
         }
 
         # recurse event
-        character_event = { id = ADJ.02 tooltip = adj_evt_tooltip_02_recurse }
+        character_event = { id = ADJ.10 tooltip = adj_evt_tooltip_10_recurse }
     }
     
     option = {
-        name = "adj_event_opt_02_new"
+        name = "adj_event_opt_10_new"
         trigger = {
             event_target:adj_target_title = { OR = { tier = BARON tier = COUNT } }
         }
         
-        hidden_tooltip = {
-            if = {
-                limit = { event_target:adj_target_title = { holding_type = castle } }
-                create_random_soldier = {
-                    dynasty = none
-                    race = ROOT
-                    religion = ROOT
-                    culture = ROOT
-                    female = 20
-                    fertility = 2
-                    health = 7
-                    trait = content
-                    attributes = {
-                        martial = 12
-                        diplomacy = 8
-                        stewardship = 6
-                        intrigue = 6
-                        learning = 6
-                    }
-                }
-            }
-            else_if = {
-                limit = { event_target:adj_target_title = { holding_type = city } }
-                create_random_steward = {
-                    dynasty = none
-                    race = ROOT
-                    religion = ROOT
-                    culture = ROOT
-                    female = 10
-                    fertility = 2
-                    health = 7
-                    trait = content
-                    attributes = {
-                        martial = 6
-                        diplomacy = 8
-                        stewardship = 12
-                        intrigue = 6
-                        learning = 6
-                    }
-                }
-            }
-            else_if = {
-                limit = { event_target:adj_target_title = { holding_type = temple } }
-                create_random_steward = {
-                    dynasty = none
-                    race = ROOT
-                    religion = ROOT
-                    culture = ROOT
-                    female = no
-                    fertility = 2
-                    health = 7
-                    trait = content
-                    attributes = {
-                        martial = 6
-                        diplomacy = 8
-                        stewardship = 6
-                        intrigue = 6
-                        learning = 12
-                    }
-                }
-            }
-            else = {
-                create_random_diplomat = {
-                    dynasty = none
-                    race = ROOT
-                    religion = ROOT
-                    culture = ROOT
-                    female = no
-                    fertility = 2
-                    health = 7
-                    trait = content
-                    attributes = {
-                        martial = 6
-                        diplomacy = 12
-                        stewardship = 6
-                        intrigue = 6
-                        learning = 6
-                    }
-                }
-            }
-    
-            new_character = {
-                grant_title = event_target:adj_target_title
-            }
-        }
-        custom_tooltip = { text = "adj_event_opt_02_new_tooltip" }
+        character_event = { id = ADJ.11 tooltip = adj_evt_tooltip_11 }
 
         # recurse event
         clr_character_flag = adj_character_flag_managing_titles
-        character_event = { id = ADJ.02 tooltip = adj_evt_tooltip_02_recurse }
+        ROOT = { character_event = { id = ADJ.10 tooltip = adj_evt_tooltip_10_recurse } }
     }
 
     option = {
         name = {
-            text = "adj_event_opt_02_vassal_duke"
+            text = "adj_event_opt_10_vassal_duke"
             trigger = {
                 event_target:adj_target_title = { tier = DUKE }
             }
         }
         name = {
-            text = "adj_event_opt_02_vassal_king"
+            text = "adj_event_opt_10_vassal_king"
             trigger = {
                 event_target:adj_target_title = { tier = KING }
             }
@@ -601,24 +514,112 @@ character_event = {
 
         # recurse event
         clr_character_flag = adj_character_flag_managing_titles
-        character_event = { id = ADJ.02 tooltip = adj_evt_tooltip_02_recurse }
+        character_event = { id = ADJ.10 tooltip = adj_evt_tooltip_10_recurse }
     }
 
     option = {
-        name = "adj_event_opt_02_abort"
+        name = "adj_event_opt_10_abort"
         clr_character_flag = adj_character_flag_managing_titles
-        custom_tooltip = { text = "adj_event_opt_02_abort_tooltip" }
+        custom_tooltip = { text = "adj_event_opt_10_abort_tooltip" }
     }
-    
-#     ###    ######## ######## ######## ########  
-#    ## ##   ##          ##    ##       ##     ## 
-#   ##   ##  ##          ##    ##       ##     ## 
-#  ##     ## ######      ##    ######   ########  
-#  ######### ##          ##    ##       ##   ##   
-#  ##     ## ##          ##    ##       ##    ##  
-#  ##     ## ##          ##    ######## ##     ## 
+}
 
-    after = {
-        clr_character_flag = adj_character_flag_managing_titles
+character_event = {
+    id = ADJ.11
+
+    hide_window = yes
+    is_triggered_only = yes
+    only_playable = yes
+    only_rulers = yes
+    ai = no
+
+    trigger = {
+        event_target:adj_target_title = { always = yes }
+    }
+
+    immediate = {
+        if = {
+            limit = { event_target:adj_target_title = { holding_type = castle } }
+            create_random_soldier = {
+                dynasty = none
+                race = ROOT
+                religion = ROOT
+                culture = ROOT
+                female = 20
+                fertility = 2
+                health = 7
+                trait = content
+                attributes = {
+                    martial = 12
+                    diplomacy = 8
+                    stewardship = 6
+                    intrigue = 6
+                    learning = 6
+                }
+            }
+        }
+        else_if = {
+            limit = { event_target:adj_target_title = { holding_type = city } }
+            create_random_steward = {
+                dynasty = none
+                race = ROOT
+                religion = ROOT
+                culture = ROOT
+                female = 10
+                fertility = 2
+                health = 7
+                trait = content
+                attributes = {
+                    martial = 6
+                    diplomacy = 8
+                    stewardship = 12
+                    intrigue = 6
+                    learning = 6
+                }
+            }
+        }
+        else_if = {
+            limit = { event_target:adj_target_title = { holding_type = temple } }
+            create_random_steward = {
+                dynasty = none
+                race = ROOT
+                religion = ROOT
+                culture = ROOT
+                female = no
+                fertility = 2
+                health = 7
+                trait = content
+                attributes = {
+                    martial = 6
+                    diplomacy = 8
+                    stewardship = 6
+                    intrigue = 6
+                    learning = 12
+                }
+            }
+        }
+        else = {
+            create_random_diplomat = {
+                dynasty = none
+                race = ROOT
+                religion = ROOT
+                culture = ROOT
+                female = no
+                fertility = 2
+                health = 7
+                trait = content
+                attributes = {
+                    martial = 6
+                    diplomacy = 12
+                    stewardship = 6
+                    intrigue = 6
+                    learning = 6
+                }
+            }
+        }
+
+        new_character = {
+            grant_title = event_target:adj_target_title
+        }
     }
 }
