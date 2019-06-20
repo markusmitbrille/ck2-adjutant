@@ -145,6 +145,7 @@ character_event = {
             limit = {
                 is_ruler = no
                 is_landed_title_allowed = event_target:adj_target_title
+                NOT = { character = event_target:adj_target_bureaucrat }
             }
 
             preferred_limit = {
@@ -182,6 +183,7 @@ character_event = {
                 is_ruler = no
                 is_landed_title_allowed = event_target:adj_target_title
                 NOT = { dynasty = ROOT }
+                NOT = { character = event_target:adj_target_bureaucrat }
             }
 
             preferred_limit = {
