@@ -38,6 +38,7 @@ adj_title_bureaucrat = {
 	
 	allowed_to_grant = {
 		higher_real_tier_than = COUNT
+		is_nomadic = no
 	}
 	
 	gain_effect = {
