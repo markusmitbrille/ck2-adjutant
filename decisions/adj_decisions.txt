@@ -21,7 +21,7 @@ decisions = {
 
         allow = {
             custom_tooltip = { 
-                text = adj_decision_allow_must_have_bureaucrat_tooltip
+                text = adj_decision_allow_has_bureaucrat_tooltip
 
                 # has bureaucrat
                 any_courtier_or_vassal = {
@@ -64,7 +64,7 @@ decisions = {
 
         allow = {
             custom_tooltip = { 
-                text = adj_decision_allow_must_have_bureaucrat_tooltip
+                text = adj_decision_allow_has_bureaucrat_tooltip
 
                 # has bureaucrat
                 any_courtier_or_vassal = {
@@ -73,7 +73,7 @@ decisions = {
                 }
             }
 
-            custom_tooltip = { text = adj_decision_allow_must_have_new_titles_tooltip }
+            custom_tooltip = { text = adj_decision_allow_has_new_titles_tooltip }
         }
 
         effect = {
@@ -104,7 +104,7 @@ decisions = {
 
         allow = {
             custom_tooltip = {
-                text = adj_decision_allow_must_have_bureaucrat_tooltip
+                text = adj_decision_allow_has_bureaucrat_tooltip
                 
                 # has bureaucrat
                 any_courtier_or_vassal = {
@@ -113,7 +113,7 @@ decisions = {
                 }
             }
 
-            custom_tooltip = { text = adj_decision_allow_must_have_new_titles_tooltip }
+            custom_tooltip = { text = adj_decision_allow_has_new_titles_tooltip }
         }
 
         effect = {
@@ -150,7 +150,7 @@ decisions = {
 
         allow = {
             custom_tooltip = {
-                text = adj_decision_allow_must_have_bureaucrat_tooltip
+                text = adj_decision_allow_has_bureaucrat_tooltip
 
                 # has bureaucrat
                 any_courtier_or_vassal = {
@@ -162,9 +162,13 @@ decisions = {
             # over vassal or duchy limit
             OR = {
                 over_vassal_limit > 0
-                any_demesne_title = {
-                    tier = DUKE
-                    count > 2
+                custom_tooltip = {
+                    text = adj_decision_allow_is_over_duchy_limit_tooltip
+
+                    any_demesne_title = {
+                        tier = DUKE
+                        count > 2
+                    }
                 }
             }
         }
