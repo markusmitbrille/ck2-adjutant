@@ -32,10 +32,26 @@ character_event = {
             always = yes
         }
 
-        # has holdings in newly acquired provinces
+        # has holdings in newly acquired, non capital duchy provinces
         any_demesne_title = {
-            location = { has_province_modifier = adj_event_modifier_newly_acquired }
-            always = yes
+            location = { 
+                has_province_modifier = adj_event_modifier_newly_acquired
+                capital_holding = {
+                    dejure_liege_title = {
+                        dejure_liege_title = {
+                            ROOT = {
+                                capital_holding = {
+                                    dejure_liege_title = {
+                                        dejure_liege_title = {
+                                            NOT = { title = PREVPREVPREVPREV }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     

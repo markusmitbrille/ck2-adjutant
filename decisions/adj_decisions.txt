@@ -14,8 +14,8 @@ decisions = {
         }
 
         allow = {
-            custom_tooltip = { text = adj_decision_allow_must_have_bureaucrat_tooltip }
-            hidden_tooltip = {
+            custom_tooltip = { 
+                text = adj_decision_allow_must_have_bureaucrat_tooltip 
                 # has bureaucrat
                 any_courtier_or_vassal = {
                     has_minor_title = adj_title_bureaucrat
@@ -46,16 +46,32 @@ decisions = {
             NOT = { has_character_flag = adj_character_flag_managing_titles }
             over_max_demesne_size < 1
 
-            # has holdings in newly acquired provinces
+            # has holdings in newly acquired, non capital duchy provinces
             any_demesne_title = {
-                location = { has_province_modifier = adj_event_modifier_newly_acquired }
-                always = yes
+                location = { 
+                    has_province_modifier = adj_event_modifier_newly_acquired
+                    capital_holding = {
+                        dejure_liege_title = {
+                            dejure_liege_title = {
+                                ROOT = {
+                                    capital_holding = {
+                                        dejure_liege_title = {
+                                            dejure_liege_title = {
+                                                NOT = { title = PREVPREVPREVPREV }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
         allow = {
-            custom_tooltip = { text = adj_decision_allow_must_have_bureaucrat_tooltip }
-            hidden_tooltip = {
+            custom_tooltip = { 
+                text = adj_decision_allow_must_have_bureaucrat_tooltip
                 # has bureaucrat
                 any_courtier_or_vassal = {
                     has_minor_title = adj_title_bureaucrat
@@ -83,21 +99,38 @@ decisions = {
             NOT = { has_character_flag = adj_character_flag_managing_titles }
             over_max_demesne_size > 0
 
-            # has holdings in newly acquired provinces
+            # has holdings in newly acquired, non capital duchy provinces
             any_demesne_title = {
-                location = { has_province_modifier = adj_event_modifier_newly_acquired }
-                always = yes
+                location = { 
+                    has_province_modifier = adj_event_modifier_newly_acquired
+                    capital_holding = {
+                        dejure_liege_title = {
+                            dejure_liege_title = {
+                                ROOT = {
+                                    capital_holding = {
+                                        dejure_liege_title = {
+                                            dejure_liege_title = {
+                                                NOT = { title = PREVPREVPREVPREV }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
         allow = {
-            custom_tooltip = { text = adj_decision_allow_must_have_bureaucrat_tooltip }
-            hidden_tooltip = {
+            custom_tooltip = {
+                text = adj_decision_allow_must_have_bureaucrat_tooltip
                 # has bureaucrat
                 any_courtier_or_vassal = {
                     has_minor_title = adj_title_bureaucrat
                     liege = { character = PREVPREV }
                 }
+            }
             }
 
             custom_tooltip = { text = adj_decision_allow_must_have_new_titles_tooltip }
@@ -122,8 +155,8 @@ decisions = {
         }
 
         allow = {
-            custom_tooltip = { text = adj_decision_allow_must_have_bureaucrat_tooltip }
-            hidden_tooltip = {
+            custom_tooltip = {
+                text = adj_decision_allow_must_have_bureaucrat_tooltip
                 # has bureaucrat
                 any_courtier_or_vassal = {
                     has_minor_title = adj_title_bureaucrat
