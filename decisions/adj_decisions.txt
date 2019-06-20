@@ -131,7 +131,15 @@ decisions = {
             is_nomadic = no
             higher_real_tier_than = COUNT
             NOT = { has_character_flag = adj_character_flag_managing_titles }
-            over_vassal_limit > 0
+
+            # over vassal or duchy limit
+            OR = {
+                over_vassal_limit > 0
+                any_demesne_title = {
+                    tier = DUKE
+                    count > 2
+                }
+            }
 
             # has demesne titles that can be given away
             any_demesne_title = {

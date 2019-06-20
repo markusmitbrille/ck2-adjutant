@@ -32,8 +32,14 @@ character_event = {
             always = yes
         }
 
-        # over vassal limit
-        over_vassal_limit > 0
+        # over vassal or duchy limit
+        OR = {
+            over_vassal_limit > 0
+            any_demesne_title = {
+                tier = DUKE
+                count > 2
+            }
+        }
 
         # has demesne titles that can be given away
         any_demesne_title = {
