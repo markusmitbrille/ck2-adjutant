@@ -131,7 +131,6 @@ decisions = {
                     liege = { character = PREVPREV }
                 }
             }
-            }
 
             custom_tooltip = { text = adj_decision_allow_must_have_new_titles_tooltip }
         }
