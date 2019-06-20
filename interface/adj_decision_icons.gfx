@@ -7,4 +7,12 @@ spriteTypes = {
 		name = "GFX_adj_manage_titles_new"
 		texturefile = "gfx\\interface\\decision_icon_ask_help_to_manage_titles.dds"
 	}
+	spriteType = {
+		name = "adj_manage_titles_new_prio"
+		texturefile = "gfx\\interface\\decision_icon_ask_help_to_manage_titles.dds"
+	}
+	spriteType = {
+		name = "adj_manage_vassals"
+		texturefile = "gfx\\interface\\decision_icon_ask_help_to_manage_titles.dds"
+	}
 }

@@ -7,22 +7,17 @@ character_event = {
 
     is_triggered_only = yes
     only_playable = yes
-
-    trigger = {
-        # FIXME: doesn't show up on province capital holdings
-        # only holdings
-        FROM = { OR = { tier = BARON tier = COUNT } }
-    }
+    only_rulers = yes
+    ai = no
 
     immediate = {
         FROM = {
-            if = {
-                limit = { has_holding_modifier = adj_event_modifier_newly_acquired }
-                remove_holding_modifier = adj_event_modifier_newly_acquired
-            }
-            add_holding_modifier = {
-                modifier = adj_event_modifier_newly_acquired
-                years = 1
+            location = {
+                remove_province_modifier = adj_event_modifier_newly_acquired
+                add_province_modifier = {
+                    modifier = adj_event_modifier_newly_acquired
+                    years = 1
+                }
             }
         }
 	}

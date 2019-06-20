@@ -9,8 +9,8 @@ decisions = {
             is_ruler = yes
             is_nomadic = no
             higher_real_tier_than = COUNT
-            over_max_demesne_size > 0
             NOT = { has_character_flag = adj_character_flag_managing_titles }
+            over_max_demesne_size > 0
         }
 
         allow = {
@@ -34,6 +34,43 @@ decisions = {
         }
     }
     adj_manage_titles_new = {
+        is_high_prio = no
+        only_playable = yes
+        only_rulers = yes
+        ai = no
+        
+        potential = {
+            is_ruler = yes
+            is_nomadic = no
+            higher_real_tier_than = COUNT
+            NOT = { has_character_flag = adj_character_flag_managing_titles }
+            over_max_demesne_size < 1
+
+            # has holdings in newly acquired provinces
+            any_demesne_title = {
+                location = { has_province_modifier = adj_event_modifier_newly_acquired }
+                always = yes
+            }
+        }
+
+        allow = {
+            custom_tooltip = { text = adj_decision_allow_must_have_bureaucrat_tooltip }
+            hidden_tooltip = {
+                # has bureaucrat
+                any_courtier_or_vassal = {
+                    has_minor_title = adj_title_bureaucrat
+                    liege = { character = PREVPREV }
+                }
+            }
+
+            custom_tooltip = { text = adj_decision_allow_must_have_new_titles_tooltip }
+        }
+
+        effect = {
+            character_event = { id = ADJ.20 tooltip = adj_evt_tooltip_20 }
+        }
+    }
+    adj_manage_titles_new_prio = {
         is_high_prio = yes
         only_playable = yes
         only_rulers = yes
@@ -44,28 +81,26 @@ decisions = {
             is_nomadic = no
             higher_real_tier_than = COUNT
             NOT = { has_character_flag = adj_character_flag_managing_titles }
+            over_max_demesne_size > 0
+
+            # has holdings in newly acquired provinces
             any_demesne_title = {
-                has_holding_modifier = adj_event_modifier_newly_acquired
+                location = { has_province_modifier = adj_event_modifier_newly_acquired }
                 always = yes
             }
         }
 
         allow = {
             custom_tooltip = { text = adj_decision_allow_must_have_bureaucrat_tooltip }
-            custom_tooltip = { text = adj_decision_allow_must_have_new_titles_tooltip }
             hidden_tooltip = {
                 # has bureaucrat
                 any_courtier_or_vassal = {
                     has_minor_title = adj_title_bureaucrat
                     liege = { character = PREVPREV }
                 }
-    
-                # has new titles
-                any_demesne_title = {
-                    has_holding_modifier = adj_event_modifier_newly_acquired
-                    always = yes
-                }
             }
+
+            custom_tooltip = { text = adj_decision_allow_must_have_new_titles_tooltip }
         }
 
         effect = {

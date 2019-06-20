@@ -1,7 +1,7 @@
 namespace = ADJ
 
 character_event = {
-    id = ADJ.10
+    id = ADJ.20
 
     window = EventWindowLongCharacter
     picture = GFX_evt_emissary
@@ -32,8 +32,11 @@ character_event = {
             always = yes
         }
 
-        # has vast demesne
-        over_max_demesne_size > 0
+        # has holdings in newly acquired provinces
+        any_demesne_title = {
+            location = { has_province_modifier = adj_event_modifier_newly_acquired }
+            always = yes
+        }
     }
     
 #  #### ##     ## ##     ## ######## ########  ####    ###    ######## ######## 
@@ -90,18 +93,10 @@ character_event = {
             limit = {
                 can_be_given_away = yes
                 NOT = { higher_tier_than = COUNT }
+                location = { has_province_modifier = adj_event_modifier_newly_acquired }
 
-                # not the capital holding
-                NAND = {
-                    tier = BARON
-                    title = event_target:adj_target_capital_barony
-                }
-                
-                # not the capital county
-                NAND = {
-                    tier = COUNT
-                    title = event_target:adj_target_capital_county
-                }
+                # not in capital duchy
+                NOT = { de_jure_liege_or_above = event_target:adj_target_capital_duchy }
             }
 
             preferred_limit = {
@@ -111,14 +106,6 @@ character_event = {
             preferred_limit = {
                 tier = COUNT
                 NOT = { de_jure_liege_or_above = event_target:adj_target_capital_kingdom }
-            }
-            preferred_limit = {
-                tier = BARON
-                NOT = { de_jure_liege_or_above = event_target:adj_target_capital_duchy }
-            }
-            preferred_limit = {
-                tier = COUNT
-                NOT = { de_jure_liege_or_above = event_target:adj_target_capital_duchy }
             }
             preferred_limit = {
                 tier = BARON
@@ -211,7 +198,7 @@ character_event = {
         }
 
         log = "---------------------------------------------------------------------------"
-        log = "ADJ.10/immediate (end)"
+        log = "ADJ.20/immediate (end)"
         log = "--> adj_target_bureaucrat         = [adj_target_bureaucrat.GetFullName]"
         log = "--> adj_target_capital_barony     = [adj_target_capital_barony.GetFullName]"
         log = "--> adj_target_capital_county     = [adj_target_capital_county.GetFullName]"
@@ -240,7 +227,7 @@ character_event = {
                 NOT = { de_jure_liege_or_above = event_target:adj_target_capital_kingdom }
             }
         }
-        text = adj_event_desc_10_baron_not_capital_kingdom
+        text = adj_event_desc_20_baron_not_capital_kingdom
         picture = GFX_evt_emissary
     }
     desc = {
@@ -250,7 +237,7 @@ character_event = {
                 NOT = { de_jure_liege_or_above = event_target:adj_target_capital_kingdom }
             }
         }
-        text = adj_event_desc_10_count_not_capital_kingdom
+        text = adj_event_desc_20_count_not_capital_kingdom
         picture = GFX_evt_emissary
     }
     desc = {
@@ -258,10 +245,9 @@ character_event = {
             event_target:adj_target_title = {
                 tier = BARON
                 de_jure_liege_or_above = event_target:adj_target_capital_kingdom
-                NOT = { de_jure_liege_or_above = event_target:adj_target_capital_duchy }
             }
         }
-        text = adj_event_desc_10_baron_not_capital_duchy
+        text = adj_event_desc_20_baron
         picture = GFX_evt_emissary
     }
     desc = {
@@ -269,30 +255,9 @@ character_event = {
             event_target:adj_target_title = {
                 tier = COUNT
                 de_jure_liege_or_above = event_target:adj_target_capital_kingdom
-                NOT = { de_jure_liege_or_above = event_target:adj_target_capital_duchy }
             }
         }
-        text = adj_event_desc_10_count_not_capital_duchy
-        picture = GFX_evt_emissary
-    }
-    desc = {
-        trigger = {
-            event_target:adj_target_title = {
-                tier = BARON
-                de_jure_liege_or_above = event_target:adj_target_capital_duchy
-            }
-        }
-        text = adj_event_desc_10_baron
-        picture = GFX_evt_emissary
-    }
-    desc = {
-        trigger = {
-            event_target:adj_target_title = {
-                tier = COUNT
-                de_jure_liege_or_above = event_target:adj_target_capital_duchy
-            }
-        }
-        text = adj_event_desc_10_count
+        text = adj_event_desc_20_count
         picture = GFX_evt_emissary
     }
 
@@ -305,20 +270,20 @@ character_event = {
 #   #######  ##           ##    ####  #######  ##    ##  ######  
 
     option = {
-        name = "adj_event_opt_10_new"
+        name = "adj_event_opt_20_new"
         trigger = {
             event_target:adj_target_title = { OR = { tier = BARON tier = COUNT } }
         }
         
-        character_event = { id = ADJ.11 tooltip = adj_evt_tooltip_11 }
+        character_event = { id = ADJ.21 tooltip = adj_evt_tooltip_21 }
 
         # recurse event
         clr_character_flag = adj_character_flag_managing_titles
-        ROOT = { character_event = { id = ADJ.10 tooltip = adj_evt_tooltip_10_recurse } }
+        ROOT = { character_event = { id = ADJ.20 tooltip = adj_evt_tooltip_20_recurse } }
     }
 
     option = {
-        name = "adj_event_opt_10_dynasty"
+        name = "adj_event_opt_20_dynasty"
         trigger = {
             event_target:adj_target_title = { 
                 OR = { tier = BARON tier = COUNT }
@@ -333,11 +298,11 @@ character_event = {
 
         # recurse event
         clr_character_flag = adj_character_flag_managing_titles
-        character_event = { id = ADJ.10 tooltip = adj_evt_tooltip_10_recurse }
+        character_event = { id = ADJ.20 tooltip = adj_evt_tooltip_20_recurse }
     }
 
     option = {
-        name = "adj_event_opt_10_courtier"
+        name = "adj_event_opt_20_courtier"
         trigger = {
             event_target:adj_target_title = { OR = { tier = BARON tier = COUNT } }
             event_target:adj_target_candidate_courtier = { always = yes }
@@ -349,19 +314,19 @@ character_event = {
 
         # recurse event
         clr_character_flag = adj_character_flag_managing_titles
-        character_event = { id = ADJ.10 tooltip = adj_evt_tooltip_10_recurse }
+        character_event = { id = ADJ.20 tooltip = adj_evt_tooltip_20_recurse }
     }
 
     option = {
-        name = "adj_event_opt_10_abort"
+        name = "adj_event_opt_20_abort"
         clr_character_flag = adj_character_flag_managing_titles
-        custom_tooltip = { text = "adj_event_opt_10_abort_tooltip" }
+        custom_tooltip = { text = "adj_event_opt_20_abort_tooltip" }
     }
 }
 
 # this helper is needed so the grantee's face doesn't show up in the top left corner of follow-up events
 character_event = {
-    id = ADJ.11
+    id = ADJ.21
 
     hide_window = yes
     is_triggered_only = yes
