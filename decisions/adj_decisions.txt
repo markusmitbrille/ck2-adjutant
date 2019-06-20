@@ -159,7 +159,14 @@ decisions = {
                 }
             }
             
-            over_vassal_limit > 0
+            # over vassal or duchy limit
+            OR = {
+                over_vassal_limit > 0
+                any_demesne_title = {
+                    tier = DUKE
+                    count > 2
+                }
+            }
         }
 
         effect = {
