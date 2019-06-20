@@ -14,8 +14,9 @@ adj_manage_vassals_desc;Ask your bureaucrat to help you take care of your vassal
 
 adj_event_modifier_newly_acquired;Recently Acquired;;;;;;;;;;;;;x
 
-adj_decision_allow_must_have_bureaucrat_tooltip;You must have have a bureaucrat in your employ;;;;;;;;;;;;;x
-adj_decision_allow_must_have_new_titles_tooltip;You must have titles, newly acquired not more than one years ago;;;;;;;;;;;;;x
+adj_decision_allow_must_have_bureaucrat_tooltip;Must have a bureaucrat in your employ;;;;;;;;;;;;;x
+adj_decision_allow_must_have_eligible_titles;Must have titles non-capital titles that can be given away;;;;;;;;;;;;;x
+adj_decision_allow_must_have_new_titles_tooltip;Must have titles, newly acquired not more than one years ago;;;;;;;;;;;;;x
 
 adj_evt_tooltip_10;Your bureaucrat will look into managing your vast demesne.;;;;;;;;;;;;;x
 adj_evt_tooltip_10_recurse;Your bureaucrat continues to make suggestions ...;;;;;;;;;;;;;x

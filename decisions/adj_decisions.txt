@@ -15,13 +15,36 @@ decisions = {
 
         allow = {
             custom_tooltip = { 
-                text = adj_decision_allow_must_have_bureaucrat_tooltip 
+                text = adj_decision_allow_must_have_bureaucrat_tooltip
+
                 # has bureaucrat
                 any_courtier_or_vassal = {
                     has_minor_title = adj_title_bureaucrat
                     liege = { character = PREVPREV }
     
                     always = yes
+                }
+            }
+
+            custom_tooltip = {
+                text = adj_decision_allow_must_have_eligible_titles
+
+                # has demesne titles that can be given away
+                any_demesne_title = {
+                    can_be_given_away = yes
+                    NOT = { higher_tier_than = COUNT }
+
+                    # not the capital holding
+                    NAND = {
+                        tier = BARON
+                        ROOT = { capital_holding = { title = PREVPREV } }
+                    }
+                    
+                    # not the capital county
+                    NAND = {
+                        tier = COUNT
+                        ROOT = { capital_holding = { dejure_liege_title = { title = PREVPREVPREV } } }
+                    }
                 }
             }
 
@@ -48,6 +71,7 @@ decisions = {
 
             # has holdings in newly acquired, non capital duchy provinces
             any_demesne_title = {
+                can_be_given_away = yes
                 location = { 
                     has_province_modifier = adj_event_modifier_newly_acquired
                     capital_holding = {
@@ -101,6 +125,7 @@ decisions = {
 
             # has holdings in newly acquired, non capital duchy provinces
             any_demesne_title = {
+                can_be_given_away = yes
                 location = { 
                     has_province_modifier = adj_event_modifier_newly_acquired
                     capital_holding = {

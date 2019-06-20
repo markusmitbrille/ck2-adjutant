@@ -34,7 +34,8 @@ character_event = {
 
         # has holdings in newly acquired, non capital duchy provinces
         any_demesne_title = {
-            location = { 
+            can_be_given_away = yes
+            location = {
                 has_province_modifier = adj_event_modifier_newly_acquired
                 capital_holding = {
                     dejure_liege_title = {

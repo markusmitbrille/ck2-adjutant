@@ -32,6 +32,24 @@ character_event = {
             always = yes
         }
 
+        # has demesne titles that can be given away
+        any_demesne_title = {
+            can_be_given_away = yes
+            NOT = { higher_tier_than = COUNT }
+
+            # not the capital holding
+            NAND = {
+                tier = BARON
+                ROOT = { capital_holding = { title = PREVPREV } }
+            }
+            
+            # not the capital county
+            NAND = {
+                tier = COUNT
+                ROOT = { capital_holding = { dejure_liege_title = { title = PREVPREVPREV } } }
+            }
+        }
+
         # has vast demesne
         over_max_demesne_size > 0
     }
