@@ -35,23 +35,8 @@ character_event = {
         # has holdings in newly acquired, non capital duchy provinces
         any_demesne_title = {
             can_be_given_away = yes
-            location = {
+            location = { 
                 has_province_modifier = adj_event_modifier_newly_acquired
-                capital_holding = {
-                    dejure_liege_title = {
-                        dejure_liege_title = {
-                            ROOT = {
-                                capital_holding = {
-                                    dejure_liege_title = {
-                                        dejure_liege_title = {
-                                            NOT = { title = PREVPREVPREVPREV }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
     }
@@ -279,6 +264,13 @@ character_event = {
         text = adj_event_desc_20_count
         picture = GFX_evt_emissary
     }
+    desc = {
+        trigger = {
+            event_target:adj_target_title = { always = no }
+        }
+        text = adj_event_desc_20_oops
+        picture = GFX_evt_emissary
+    }
 
 #   #######  ########  ######## ####  #######  ##    ##  ######  
 #  ##     ## ##     ##    ##     ##  ##     ## ###   ## ##    ## 
@@ -338,8 +330,22 @@ character_event = {
 
     option = {
         name = "adj_event_opt_20_abort"
+        trigger = {
+            event_target:adj_target_title = { always = yes }
+        }
+        
         clr_character_flag = adj_character_flag_managing_titles
         custom_tooltip = { text = "adj_event_opt_20_abort_tooltip" }
+    }
+
+    option = {
+        name = "adj_event_opt_20_oops"
+        trigger = {
+            event_target:adj_target_title = { always = no }
+        }
+
+        clr_character_flag = adj_character_flag_managing_titles
+        custom_tooltip = { text = "adj_event_opt_20_oops_tooltip" }
     }
 }
 

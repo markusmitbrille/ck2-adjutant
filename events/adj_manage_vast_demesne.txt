@@ -36,18 +36,6 @@ character_event = {
         any_demesne_title = {
             can_be_given_away = yes
             NOT = { higher_tier_than = COUNT }
-
-            # not the capital holding
-            NAND = {
-                tier = BARON
-                ROOT = { capital_holding = { title = PREVPREV } }
-            }
-            
-            # not the capital county
-            NAND = {
-                tier = COUNT
-                ROOT = { capital_holding = { dejure_liege_title = { title = PREVPREVPREV } } }
-            }
         }
 
         # has vast demesne
@@ -315,6 +303,13 @@ character_event = {
         text = adj_event_desc_10_count
         picture = GFX_evt_emissary
     }
+    desc = {
+        trigger = {
+            event_target:adj_target_title = { always = no }
+        }
+        text = adj_event_desc_10_oops
+        picture = GFX_evt_emissary
+    }
 
 #   #######  ########  ######## ####  #######  ##    ##  ######  
 #  ##     ## ##     ##    ##     ##  ##     ## ###   ## ##    ## 
@@ -374,8 +369,22 @@ character_event = {
 
     option = {
         name = "adj_event_opt_10_abort"
+        trigger = {
+            event_target:adj_target_title = { always = yes }
+        }
+
         clr_character_flag = adj_character_flag_managing_titles
         custom_tooltip = { text = "adj_event_opt_10_abort_tooltip" }
+    }
+
+    option = {
+        name = "adj_event_opt_10_oops"
+        trigger = {
+            event_target:adj_target_title = { always = no }
+        }
+
+        clr_character_flag = adj_character_flag_managing_titles
+        custom_tooltip = { text = "adj_event_opt_10_oops_tooltip" }
     }
 }
 

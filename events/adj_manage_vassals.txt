@@ -34,6 +34,12 @@ character_event = {
 
         # over vassal limit
         over_vassal_limit > 0
+
+        # has demesne titles that can be given away
+        any_demesne_title = {
+            can_be_given_away = yes
+            higher_tier_than = COUNT
+        }
     }
     
 #  #### ##     ## ##     ## ######## ########  ####    ###    ######## ######## 
@@ -273,6 +279,16 @@ character_event = {
             }
         }
         text = adj_event_desc_30_king
+        picture = GFX_evt_magnificent_castle
+    }
+    desc = {
+        trigger = {
+            NAND = {
+                event_target:adj_target_title = { always = yes }
+                event_target:adj_target_candidate_vassal = { always = yes }
+            }
+        }
+        text = adj_event_desc_30_oops
         picture = GFX_evt_magnificent_castle
     }
 
