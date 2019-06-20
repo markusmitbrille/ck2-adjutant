@@ -289,7 +289,7 @@ character_event = {
     }
     desc = {
         trigger = {
-            NAND = {
+            NOR = {
                 event_target:adj_target_title = { always = yes }
                 event_target:adj_target_candidate_vassal = { always = yes }
             }
@@ -335,7 +335,25 @@ character_event = {
 
     option = {
         name = "adj_event_opt_30_abort"
+        trigger = {
+            OR = {
+                event_target:adj_target_title = { always = yes }
+                event_target:adj_target_candidate_vassal = { always = yes }
+            }
+        }
         clr_character_flag = adj_character_flag_managing_titles
         custom_tooltip = { text = "adj_event_opt_30_abort_tooltip" }
+    }
+
+    option = {
+        name = "adj_event_opt_30_oops"
+        trigger = {
+            NOR = {
+                event_target:adj_target_title = { always = yes }
+                event_target:adj_target_candidate_vassal = { always = yes }
+            }
+        }
+        clr_character_flag = adj_character_flag_managing_titles
+        custom_tooltip = { text = "adj_event_opt_30_oops_tooltip" }
     }
 }

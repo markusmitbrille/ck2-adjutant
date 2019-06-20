@@ -305,7 +305,7 @@ character_event = {
     }
     desc = {
         trigger = {
-            event_target:adj_target_title = { always = no }
+            NOT = { event_target:adj_target_title = { always = yes } }
         }
         text = adj_event_desc_10_oops
         picture = GFX_evt_emissary
@@ -380,7 +380,7 @@ character_event = {
     option = {
         name = "adj_event_opt_10_oops"
         trigger = {
-            event_target:adj_target_title = { always = no }
+            NOT = { event_target:adj_target_title = { always = yes } }
         }
 
         clr_character_flag = adj_character_flag_managing_titles

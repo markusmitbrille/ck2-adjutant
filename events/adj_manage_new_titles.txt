@@ -266,7 +266,7 @@ character_event = {
     }
     desc = {
         trigger = {
-            event_target:adj_target_title = { always = no }
+            NOT = { event_target:adj_target_title = { always = yes } }
         }
         text = adj_event_desc_20_oops
         picture = GFX_evt_emissary
