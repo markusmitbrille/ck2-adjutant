@@ -5,9 +5,9 @@ adj_title_bureaucrat_desc;Your bureaucrat is your loyal servant and helpful righ
 
 adj_manage_titles_limit;Ask Your Bureaucrat to Manage Your Demesne;;;;;;;;;;;;;x
 adj_manage_titles_limit_desc;Ask your bureaucrat to help you take care of your vast demesne. Until you are below the demesne limit again, he shall go through each one and present you with several courses of action, of which you may then choose any one or none, as it please the [Root.GetTitle].;;;;;;;;;;;;;x
-adj_manage_titles_new;Ask Your Bureaucrat to Manage New Acquirations;;;;;;;;;;;;;x
+adj_manage_titles_new;Ask Your Bureaucrat to Manage New Acquisitions;;;;;;;;;;;;;x
 adj_manage_titles_new_desc;Ask your bureaucrat to help you take care of all newly acquired titles. He shall go through each one and present you with several courses of action, of which you may then choose any one or none, as it please the [Root.GetTitle].;;;;;;;;;;;;;x
-adj_manage_titles_new_prio;Ask Your Bureaucrat to Manage New Acquirations;;;;;;;;;;;;;x
+adj_manage_titles_new_prio;Ask Your Bureaucrat to Manage New Acquisitions;;;;;;;;;;;;;x
 adj_manage_titles_new_prio_desc;Ask your bureaucrat to help you take care of all newly acquired titles. He shall go through each one and present you with several courses of action, of which you may then choose any one or none, as it please the [Root.GetTitle].;;;;;;;;;;;;;x
 adj_manage_vassals;Ask Your Bureaucrat to Manage Your Vassals;;;;;;;;;;;;;x
 adj_manage_vassals_desc;Ask your bureaucrat to help you take care of your vassals. He shall make suggestions as to whom you might elevate in order to delegate the burdens of running a large realm.;;;;;;;;;;;;;x
@@ -21,7 +21,7 @@ adj_decision_allow_is_over_duchy_limit_tooltip;Too many duchies held;;;;;;;;;;;;
 adj_evt_tooltip_10;Your bureaucrat will look into managing your vast demesne.;;;;;;;;;;;;;x
 adj_evt_tooltip_10_recurse;Your bureaucrat continues to make suggestions ...;;;;;;;;;;;;;x
 adj_evt_tooltip_11;Find a worthy candidate from amongst the realm and grant them the [adj_target_title.GetFullName];;;;;;;;;;;;;x
-adj_evt_tooltip_20;Your bureaucrat will look into managing your new acquirations.;;;;;;;;;;;;;x
+adj_evt_tooltip_20;Your bureaucrat will look into managing your new acquisitions.;;;;;;;;;;;;;x
 adj_evt_tooltip_20_recurse;Your bureaucrat continues to make suggestions ...;;;;;;;;;;;;;x
 adj_evt_tooltip_21;Find a worthy candidate from amongst the realm and grant them the [adj_target_title.GetFullName];;;;;;;;;;;;;x
 adj_evt_tooltip_30;Your bureaucrat will look into managing your vassals.;;;;;;;;;;;;;x
